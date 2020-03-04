@@ -30,7 +30,7 @@ class Products {
       console.log(products);
       return products;
     } catch (error) {
-      console.log(error);
+      console.log("err", error);
     }
   }
 }
@@ -45,7 +45,7 @@ class UI {
                     <img src=${product.image} alt="product-1" class="product-img">
                     <button class="bag-btn" data-id=${product.id}>
                         <i class="fas fa-shopping-cart"></i>
-                        add to bag
+                        add to cart
                     </button>
                 </div>
                 <h3>${product.title}</h3>
@@ -163,9 +163,13 @@ class Storage {
     localStorage.setItem("cart", JSON.stringify(cart));
   }
   static getCart() {
-    return localStorage.getItem("cart")
-      ? JSON.parse(localStorage.getItem("cart"))
-      : [];
+    if (localStorage.getItem("cart")) {
+      console.log("true");
+
+      return JSON.parse(localStorage.getItem("cart"));
+    } else {
+      return [];
+    }
   }
 }
 
