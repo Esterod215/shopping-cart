@@ -68,8 +68,9 @@ class UI {
       button.addEventListener("click", e => {
         event.target.innerText = "Already in cart";
         event.target.disabled = true;
-        let cartItem = Storage.getProducts(id);
-        console.log(cartItem);
+        let cartItem = { ...Storage.getProducts(id), amount: 1 };
+        cart = [...cart, cartItem];
+        Storage.saveCart(cart);
       });
     });
   }
@@ -82,6 +83,9 @@ class Storage {
   static getProducts(id) {
     let products = JSON.parse(localStorage.getItem("products"));
     return products.find(item => item.id === id);
+  }
+  static saveCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
 }
 
