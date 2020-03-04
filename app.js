@@ -73,6 +73,7 @@ class UI {
         Storage.saveCart(cart);
         this.setCartValues(cart);
         this.addCartItem(cartItem);
+        this.showCart();
       });
     });
   }
@@ -89,8 +90,8 @@ class UI {
   }
   addCartItem(item) {
     const div = document.createElement("div");
-    div.classList.add(".cart-item");
-    div.innerHTML = `<img src=${item.image} alt="product ${item.id}">
+    div.classList.add("cart-item");
+    div.innerHTML = `<img  src=${item.image} alt="product ${item.id}">
                     <div>
                         <h4>${item.title}</h4>
                         <h5>$${item.price}</h5>
@@ -103,6 +104,10 @@ class UI {
                         </div>`;
     cartContent.appendChild(div);
     console.log(cartContent);
+  }
+  showCart() {
+    cartOverlay.classList.add("transparentBcg");
+    cartDOM.classList.add("showCart");
   }
 }
 
