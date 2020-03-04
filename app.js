@@ -9,6 +9,8 @@ const cartItems = document.querySelector(".cart-items");
 const cartTotal = document.querySelector(".cart-total");
 const cartContent = document.querySelector(".cart-content");
 const productsDOM = document.querySelector(".products-center");
+const shopBtn = document.querySelector(".shop-btn");
+console.log("shop-btn,", shopBtn);
 //cart
 let cart = [];
 //buttons
@@ -115,6 +117,9 @@ class UI {
     this.populate(cart);
     cartBtn.addEventListener("click", this.showCart);
     closeCartBtn.addEventListener("click", this.hideCart);
+    shopBtn.addEventListener("click", e => {
+      smoothScroll(".products", 1000);
+    });
   }
   populate(cart) {
     cart.forEach(item => {
@@ -203,6 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
   const products = new Products();
   ui.setupAPP();
+
   //get all products
   products
     .getProducts()
@@ -215,3 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ui.cartLogic();
     });
 });
+function smoothScroll() {
+  window.scrollTo(0, 610);
+}
