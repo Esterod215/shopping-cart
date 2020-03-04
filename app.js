@@ -86,7 +86,7 @@ class UI {
     });
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
     cartItems.innerText = itemsTotal;
-    console.log(cartItems, cartTotal);
+    console.log("heree", cartItems, cartTotal);
   }
   addCartItem(item) {
     const div = document.createElement("div");
@@ -129,6 +129,31 @@ class UI {
     clearCartBtn.addEventListener("click", () => {
       this.clearCart(); //we want this to refer to UI class so its put in an anonymous fuction
     });
+    cartContent.addEventListener("click", e => {
+      if (event.target.classList.contains("remove-item")) {
+        cartContent.removeChild(event.target.parentElement.parentElement);
+        this.removeItem(event.target.dataset.id);
+        this.hideCart();
+      } else if (event.target.classList.contains("fa-chevron-up")) {
+        console.log(event.target);
+        let tempItem = cart.find(item => item.id === event.target.dataset.id);
+        tempItem.amount += 1;
+        Storage.saveCart(cart);
+        this.setCartValues(cart);
+        event.target.nextElementSibling.innerText = tempItem.amount;
+      } else if (event.target.classList.contains("fa-chevron-down")) {
+        let tempItem = cart.find(item => item.id === event.target.dataset.id);
+        tempItem.amount -= 1;
+        if (tempItem.amount > 0) {
+          Storage.saveCart(cart);
+          this.setCartValues(cart);
+          event.target.previousElementSibling.innerText = tempItem.amount;
+        } else {
+          cartContent.removeChild(event.target.parentElement.parentElement);
+          this.removeItem(event.target.dataset.id);
+        }
+      }
+    });
   }
   clearCart() {
     let cartItems = cart.map(item => item.id);
@@ -139,9 +164,10 @@ class UI {
     this.hideCart();
   }
   removeItem(id) {
-    cart = cart.filter(item => item.id !== id);
+    cart = cart.filter(item => item.id != id);
+    console.log(cart);
     this.setCartValues(cart);
-    Storage.saveCart();
+    Storage.saveCart(cart);
     let button = this.getSingleButton(id);
     button.disabled = false;
     button.innerHTML = `<i class="fas fa-shopping-cart"></i>add to cart`;
@@ -163,7 +189,7 @@ class Storage {
     localStorage.setItem("cart", JSON.stringify(cart));
   }
   static getCart() {
-    if (localStorage.getItem("cart")) {
+    if (localStorage.getItem("cart") != undefined) {
       console.log("true");
 
       return JSON.parse(localStorage.getItem("cart"));
