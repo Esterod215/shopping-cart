@@ -39,6 +39,7 @@ body {
 }
 .nav-icon {
   font-size: 1.5rem;
+  margin-right: 20px;
 }
 .cart-btn {
   position: relative;
@@ -52,6 +53,7 @@ body {
   padding: 0 5px;
   border-radius: 30%;
   color: var(--mainWhite);
+  margin-right: 20px;
 }
 /* NavBar End */
 
