@@ -37,6 +37,9 @@ body {
   justify-content: space-between;
   padding: 0 1.5rem;
 }
+.navbar .navbar-center img {
+  height: 2.5rem;
+}
 .nav-icon {
   font-size: 1.5rem;
   margin-right: 20px;
